@@ -10,7 +10,7 @@ public:
 		: name(move(dishName)), price(dishPrice){}
 	Dish(const Dish& other)
 		: name(other.name), price(other.price){}
-	Dish& Dish::operator=(const Dish& other){
+	Dish& operator=(const Dish& other){
 		name = other.name;
 		price = other.price;
 		return *this;
