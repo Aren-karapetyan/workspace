@@ -1,5 +1,7 @@
 #include"Dish.h"
 #include<iostream>
+#include<string>	
+
 
 using namespace std;
 class Appetizer : public Dish {
