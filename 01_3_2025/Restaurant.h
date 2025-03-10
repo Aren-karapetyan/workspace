@@ -1,3 +1,10 @@
+#pragma once
+#include "Menu.h"
+#include "Customer.h"
+#include "Order.h"
+#include <vector>
+#include <string>
+
 class Restaurant {
     private:
         Menu menu;
@@ -14,6 +21,6 @@ class Restaurant {
         void showMenu() const;
         Customer* getCustomerByName(const std::string& name);
         void placeNewOrder(const std::string& customerName);
-        void viewCustomerOrderHistory(const std::string& customerName) const;
+        void viewCustomerOrderHistory(const std::string& customerName);
     }; 
     

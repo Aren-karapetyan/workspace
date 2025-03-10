@@ -1,3 +1,10 @@
+#pragma once
+#include"Dish.h"
+#include<iostream>
+#include<vector>
+
+class Customer;
+
 class Order {
     private:
         Customer* customer;

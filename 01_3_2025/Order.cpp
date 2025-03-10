@@ -1,18 +1,13 @@
 #include "Order.h"
-#include<iostream>
-#include<vector>
-#include"Customer.h"
-#include"Dish.h"
+#include <vector>
+#include "Customer.h"
+#include <iostream>
+
 using namespace std;
-class Order {
-    private:
-        Customer* customer;
-        vector<Dish*> orderedDishes;
-        double totalPrice;
-    public:
-        Order(Customer* customer): customer(customer), totalPrice(0){}
-        Order(const Order& other): customer(other.customer), orderedDishes(other.orderedDishes), totalPrice(other.totalPrice){}
-        Order& operator=(const Order& other){
+
+        Order::Order(Customer* customer): customer(customer), totalPrice(0){}
+        Order::Order(const Order& other): customer(other.customer), orderedDishes(other.orderedDishes), totalPrice(other.totalPrice){}
+        Order& Order::operator=(const Order& other){
             if(this != &other){
                 customer = other.customer;
                 orderedDishes = other.orderedDishes;
@@ -20,8 +15,8 @@ class Order {
             }
             return *this;
         }
-        Order(Order&& other) noexcept: customer(other.customer), orderedDishes(move(other.orderedDishes)), totalPrice(other.totalPrice){}
-        Order& operator=(Order&& other) noexcept{
+        Order::Order(Order&& other) noexcept: customer(other.customer), orderedDishes(move(other.orderedDishes)), totalPrice(other.totalPrice){}
+        Order& Order::operator=(Order&& other) noexcept{
             if(this != &other){
                 customer = other.customer;
                 orderedDishes = move(other.orderedDishes);
@@ -29,20 +24,18 @@ class Order {
             }
             return *this;
         }
-        ~Order() = default;
-        void addDish(Dish* dish){
+        void Order::addDish(Dish* dish){
             orderedDishes.push_back(dish);
         }
-        void calculateTotal(){
+        void Order::calculateTotal(){
             for(const auto& dish : orderedDishes){
                 totalPrice += dish->getPrice();
             }
         }
-        void displayOrder() const{
+        void Order::displayOrder() const{
             cout << "Customer: " << customer->getName() << endl;
             for(const auto& dish : orderedDishes){
                 dish->display();
             }
             cout << "Total Price: " << totalPrice << endl;
         }
-    };

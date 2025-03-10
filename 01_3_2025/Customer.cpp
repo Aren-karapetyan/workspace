@@ -1,20 +1,15 @@
-#include<iostream>
-#include<vector>
-#include"Order.h"
+#include "Customer.h"
+#include <iostream>
+
 
 using namespace std;
 
-class Customer {
-private:
-	string name;
-	string contactInfo;
-	vector<Order> orderHistory;
-public:
-	Customer(string customerName, string contact)
+
+	Customer::Customer(string customerName, string contact)
 		:name(customerName), contactInfo(contact){}
-	Customer(const Customer& other)
+	Customer::Customer(const Customer& other)
 		: name(other.name), contactInfo(other.contactInfo), orderHistory(other.orderHistory){}
-    Customer& operator=(const Customer& other){
+    Customer& Customer::operator=(const Customer& other){
         if(this != &other){
             name = other.name;
             contactInfo = other.contactInfo;
@@ -22,9 +17,9 @@ public:
         }
         return *this;
     }
-    Customer(Customer&& other) noexcept
+    Customer::Customer(Customer&& other) noexcept
     : name(move(other.name)), contactInfo(move(other.contactInfo)), orderHistory(move(other.orderHistory)){}
-    Customer& operator=(Customer&& other) noexcept{
+    Customer& Customer::operator=(Customer&& other) noexcept{
         if(this != &other){
             name = move(other.name);
             contactInfo = move(other.contactInfo);
@@ -32,16 +27,14 @@ public:
         }
         return *this;
     }
-    ~Customer() = default{}
-    void placeOrder(Order order){
+    void Customer::placeOrder(Order order){
         orderHistory.push_back(order);
     }
-    void viewOrderHistory() const{
+    void Customer::viewOrderHistory() const{
         for(const auto& order : orderHistory){
-            order.display();
+            order.displayOrder();
         }
     }
-    string getName() const{
+    string Customer::getName() const{
         return name;
     }
-};

@@ -1,26 +1,17 @@
-#include "Menu.h"
-#include "Customer.h"
-#include "Order.h"
-#include <vector>
-#include <string>
-#include <iostream>
+
+#include"Restaurant.h"
+#include<iostream>
 
 using namespace std;
 
-class Restaurant {
-    private:
-        Menu menu;
-        vector<Customer*> customers;
-        vector<Order> orders;
-    public:
-    
-        Restaurant(){}
-        Restaurant(const Restaurant& other): menu(other.menu), orders(other.orders){
+
+        Restaurant::Restaurant(){}
+        Restaurant::Restaurant(const Restaurant& other): menu(other.menu), orders(other.orders){
             for(int i = 0; i < other.customers.size(); i++){
                 customers.push_back(new Customer(*other.customers[i]));
             }
         }
-        Restaurant& operator=(const Restaurant& other){
+        Restaurant& Restaurant::operator=(const Restaurant& other){
             if(this != &other){
                 menu = other.menu;
                 orders = other.orders;
@@ -34,8 +25,8 @@ class Restaurant {
             }
             return *this;
         }
-        Restaurant(Restaurant&& other) noexcept: menu(move(other.menu)), orders(move(other.orders)), customers(move(other.customers)){}
-        Restaurant& operator=(Restaurant&& other) noexcept{
+        Restaurant::Restaurant(Restaurant&& other) noexcept: menu(move(other.menu)), orders(move(other.orders)), customers(move(other.customers)){}
+        Restaurant& Restaurant::operator=(Restaurant&& other) noexcept{
             if(this != &other){
                 menu = move(other.menu);
                 orders = move(other.orders);
@@ -47,15 +38,15 @@ class Restaurant {
             }
             return *this;
         }
-        ~Restaurant(){
+        Restaurant::~Restaurant(){
             for(int i = 0; i < customers.size(); i++){
                 delete customers[i];
             }
         }
-        void showMenu() const{
+        void Restaurant::showMenu() const{
             menu.displayMenu();
         }
-        Customer* getCustomerByName(const string& name){
+        Customer* Restaurant::getCustomerByName(const string& name){
             for(int i = 0; i < customers.size(); i++){
                 if(customers[i]->getName() == name){
                     return customers[i];
@@ -63,7 +54,7 @@ class Restaurant {
             }
             return nullptr;
         }
-        void placeNewOrder(const string& customerName){
+        void Restaurant::placeNewOrder(const string& customerName){
             Customer* customer = getCustomerByName(customerName);
             if(customer == nullptr){
                 cout << "Customer not found" << endl;
@@ -91,7 +82,7 @@ class Restaurant {
             orders.push_back(order);
             customer->placeOrder(order);
         }
-        void viewCustomerOrderHistory(const string& customerName) const{
+        void Restaurant::viewCustomerOrderHistory(const string& customerName){
             Customer* customer = getCustomerByName(customerName);
             if(customer == nullptr){
                 cout << "Customer not found" << endl;
@@ -99,5 +90,4 @@ class Restaurant {
             }
             customer->viewOrderHistory();
         }   
-    }; 
     

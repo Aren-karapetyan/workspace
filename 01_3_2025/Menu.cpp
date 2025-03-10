@@ -1,32 +1,29 @@
-#include<vector>
+#include"Menu.h"
 #include<iostream>
-#include"Dish.h"
+#include<string>
+
 
 using namespace std;
-
-class Menu {
-private:
-	vector<Dish*> dishes;
-public:
-	Menu(const Menu& other){
+	Menu::Menu(){}
+	Menu::Menu(const Menu& other){
 		for(int i = 0; i < other.dishes.size(); i++){
 			dishes.push_back(new Dish(*other.dishes[i]));
 		}
 	}
-	Menu& operator=(const Menu& other){
+	Menu& Menu::operator=(const Menu& other){
 		for(int i = 0; i < other.dishes.size(); i++){
                 	delete dishes[i];
                 }
 		dishes.clear();
 		for (int i = 0; i < other.dishes.size(); i++){
-			dishes.push_back(new.Dish(*other.dishes[i]));
+			dishes.push_back(new Dish(*other.dishes[i]));
 		}
 		return *this;
         }
-	Menu(Menu&& other) noexcept{
+	Menu::Menu(Menu&& other) noexcept{
 		dishes= move(other.dishes);
 	}
-	Menu& operator=(Menu&& other) noexcept{
+	Menu& Menu::operator=(Menu&& other) noexcept{
 		for(int i = 0; i < other.dishes.size(); i++){
                         delete dishes[i];
                 }
@@ -34,26 +31,26 @@ public:
 		dishes = move(other.dishes);
 		return *this;
 	}
-	~Menu(){
-		for(int i = 0; i < other.dishes.size(); i++){
+	Menu::~Menu(){
+		for(int i = 0; i < dishes.size(); i++){
                         delete dishes[i];
                 }
 	}
 
-	void addDish(Dish* dish){
+	void Menu::addDish(Dish* dish){
 		dishes.push_back(dish);
 	}
-	void displayMenu() const{
+	void Menu::displayMenu() const{
 		for (size_t i = 0; i < dishes.size(); ++i) {
 			dishes[i]->display();
 		}
 	}
-	Dish* getDishByName(const string& dishName) const{
+	Dish* Menu::getDishByName(const string& dishName) const{
 		for (size_t i = 0; i < dishes.size(); ++i) {
 			if (dishes[i]->getName() == dishName) {
 				return dishes[i];
 			}
 		}
+		return nullptr;
 	}
-};
 
