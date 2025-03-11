@@ -1,40 +1,26 @@
+#pragma once
 #include<iostream>
+#include<string>
+#include "EmployeeStatus.h"
 
 using namespace std;
 
-class enum Role{
-    Intem,
-    Junior,
-    Middle,
-    Senior
-}
-class enum Status{
-    Active,
-    Onleave,
-    Inactiv,
-    Retired
-}
-class enum Type{
-    FullTime,
-    PartTime 
-}
-class enum 
 class Employee{
-    private:
-        streing EmployeeID;
-        streing name;
+    protected:
+        string EmployeeID;
+        string name;
         double baseSalary;
         Role role;
         Status status;
         Type type;
         double rate;
     public:
-        Employee(string EmployeeID, string name, double baseSalary, Role role, Status status, Type type, double rate);
-        virtual ~Employee();
+        Employee(string id, string empName, double salary, Role empRole, Type empType);
+        virtual ~Employee() = default;
 
-        virtual double calculateSalary() = 0;
+        virtual double calculateSalary() const = 0;
         virtual void promote();
-        virtual void displayDetails() = 0;
+        virtual void displayDetails() const;
 
         void updateStatus(Status newstatus);
         string getEmployeeID() const;
